@@ -128,19 +128,26 @@ const MattersProvider = (props) => {
   };
 
   const setActiveMatter = (id) => {
-    const matterId = id;
-    console.log(matterId);
-    axios
-      .post("http://localhost:3000/get-active-matter", {
-        id: matterId,
-      })
-      .then((res) => {
-        console.log(res.data[0]);
-        dispatch({
-          type: "SET_ACTIVE_MATTER",
-          payload: res.data[0],
-        });
+    if (id === null) {
+      dispatch({
+        type: "SET_ACTIVE_MATTER",
+        payload: { id: 0 },
       });
+    } else {
+      const matterId = id;
+      console.log(matterId);
+      axios
+        .post("http://localhost:3000/get-active-matter", {
+          id: matterId,
+        })
+        .then((res) => {
+          console.log(res.data[0]);
+          dispatch({
+            type: "SET_ACTIVE_MATTER",
+            payload: res.data[0],
+          });
+        });
+    }
   };
 
   const setMatterTitle = (content, id) => {
@@ -204,6 +211,15 @@ const MattersProvider = (props) => {
           console.log(res);
         })
         .then(console.log(state.activeToDoList));
+    } else {
+      dispatch({
+        type: "SET_ACTIVE_TODOLIST",
+        payload: null,
+      });
+      dispatch({
+        type: "GET_TODOLIST",
+        payload: null,
+      });
     }
   };
 

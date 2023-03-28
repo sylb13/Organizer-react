@@ -92,7 +92,6 @@ ul {
 }
 
 .expanding-button{
-  /* to jest do expanding buttonów */
   border: none;
   border-radius: 50%;
   width: 20px;
@@ -381,8 +380,9 @@ ul {
   grid-column: 2/3;
   grid-row: 2/3;
   display: flex;
+  align-items: center;
   justify-content: center;
-
+  padding-top: 30px;
 }
 
 .day-window{
@@ -406,10 +406,23 @@ ul {
 .day-event{
   height: 15%;
   width: 100%;
+  max-width: 100%;
   background-color: #C0C0C0;
   border-radius: 15px;
   margin-bottom: 5px;
   padding: 0px 10px;
+}
+
+.change-day-button{
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 80px;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ------------- MATTERS SCREEN, BOX ------------- */

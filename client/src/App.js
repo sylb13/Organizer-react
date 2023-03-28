@@ -4,7 +4,7 @@ import CalendarScreen from "./screens/CalendarScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import MattersScreen from "./screens/MattersScreen";
-import CategoriesScreen from "./screens/CategoriesScreen";
+import NotesScreen from "./screens/NotesScreen";
 import ContactsScreen from "./screens/ContactsScreen";
 import DayScreen from "./screens/DayScreen";
 import { MattersProvider } from "./context/MattersContext";
@@ -23,7 +23,7 @@ function App() {
           <Route path="/calendar" component={CalendarScreen} exact />
           <Route path="/day-screen" component={DayScreen} exact />
 
-          <Route path="/categories" component={CategoriesScreen} exact />
+          <Route path="/notes" component={NotesScreen} exact />
 
           <Route path="/contacts" component={ContactsScreen} exact />
         </CalendarProvider>

@@ -3,14 +3,14 @@ import ToolsPanel from "../components/ToolsPanel";
 import MainPanel from "../components/MainPanel";
 import DetailsPanel from "../components/DetailsPanel";
 
-function CategoriesScreen() {
+function NotesScreen() {
   return (
     <div className="grid-arrangement">
-      <ToolsPanel appearance="categories" />
+      <ToolsPanel appearance="notes" />
       <MainPanel />
-      <DetailsPanel appearance="categories" />
+      <DetailsPanel appearance="notes" />
     </div>
   );
 }
 
-export default CategoriesScreen;
+export default NotesScreen;

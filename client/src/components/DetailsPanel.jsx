@@ -56,10 +56,17 @@ function DetailsPanel(props) {
           click={handleButton}
           direction={isPanelHidden ? "left" : "right"}
         />
-        <div className="details-div"></div>
+        <div className="details-div">
+          <ToDoList />
+          <CategoriesWindow />
+          <h2>
+            Tu jeszcze musze dodać Alerty ale dopiero jak będą działac
+            poprawnie. Kalendarza zdecydowalem sie nie dodawać
+          </h2>
+        </div>
       </div>
     );
-  } else if (props.appearance === "categories") {
+  } else if (props.appearance === "notes") {
     return (
       <div id="details-panel" className="details-panel">
         <ExpandingButton

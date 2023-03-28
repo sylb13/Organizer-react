@@ -92,7 +92,7 @@ function ToolsPanel(props) {
         />
       </div>
     );
-  } else if (props.appearance === "categories") {
+  } else if (props.appearance === "notes") {
     return (
       <div id="tools-panel" className="tools-panel">
         <div className="tools-div"></div>

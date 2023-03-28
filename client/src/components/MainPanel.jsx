@@ -8,7 +8,7 @@ function MainPanel() {
         <Link to={"/matters"}> Matters </Link>
         {/* <a href="/matters">Matters</a> */}
         <Link to={"/calendar"}> Calendar </Link>
-        <Link to={"/Categories"}> Categories </Link>
+        <Link to={"/notes"}> Notes </Link>
         <Link to={"/Contacts"}> Contacts </Link>
 
         {/* <a href="/calendar">Calendar</a>

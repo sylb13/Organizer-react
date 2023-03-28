@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { CalendarContext } from "../../context/CalendarContext";
 import { MattersContext } from "../../context/MattersContext";
 
@@ -22,8 +22,8 @@ export default function CalendarEvent(props) {
   //   };
 
   const findOutColor = () => {
-    let dupa = categories;
-    let found = dupa.find(
+    let x = categories;
+    let found = x.find(
       (element) => element.id === props.matterDetails.categoryId
     );
     console.log("Found: " + found);

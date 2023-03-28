@@ -3,6 +3,7 @@ import DayEvent from "./DayEvent";
 import { CalendarContext } from "../../context/CalendarContext";
 import { useContext } from "react";
 import { useEffect } from "react";
+import ChangeDayButton from "./ChangeDayButton";
 
 export default function DayWindow(props) {
   const { chosenDay, chosenMonth, chosenYear, calendarMatters } =
@@ -27,7 +28,13 @@ export default function DayWindow(props) {
 
   const dayMatters = calendarMatters.filter(filterFunction);
 
-  const MATTERS = dayMatters.map((matter) => <DayEvent />);
+  const MATTERS = dayMatters.map((matter) => (
+    <DayEvent
+      categoryId={matter.categoryId}
+      description={matter.title}
+      matterId={matter.id}
+    />
+  ));
   const MONTHS = {
     Jan: "January",
     Feb: "February",
@@ -44,6 +51,7 @@ export default function DayWindow(props) {
   };
   return (
     <div className="day-panel">
+      <ChangeDayButton direction={"left"} changeDay={props.showDayBefore} />
       <div className="day-window">
         <div className="day-window-title-label">
           <p style={{ fontSize: "58px", margin: "0px" }}>{chosenDay}</p>
@@ -72,6 +80,7 @@ export default function DayWindow(props) {
           {MATTERS}
         </div>
       </div>
+      <ChangeDayButton direction={"right"} changeDay={props.showDayAfter} />
     </div>
   );
 }

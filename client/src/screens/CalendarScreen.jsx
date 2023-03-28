@@ -11,6 +11,8 @@ function CalendarScreen() {
     useContext(CalendarContext);
   const { getCategories } = useContext(MattersContext);
   useEffect(() => {
+    setChosenYear(year);
+    setChosenMonth(month);
     getCategories();
   }, []);
   let date = new Date();
