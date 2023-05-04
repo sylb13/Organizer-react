@@ -544,21 +544,47 @@ router.post("/set-alert", async (req, res) => {
 router.get("/get-alerts", async (req, res) => {
   try {
     const userId = parseInt(req.session.user.userId);
-    const alerts = await models.Alert.findAll({
-      where: {
-        userId: userId,
-      },
-      order: [["date", "ASC"]],
-    });
+    // const alerts = await models.Alert.findAll({
+    //   where: {
+    //     userId: userId,
+    //   },
+    //   order: [["date", "ASC"]],
+    // });
     // const alerts = await sequelize.query(
-    //   "SELECT Alert.id, Alert.date, Alert.matterId, Matter.title FROM Alerts AS Alert FULL OUTER JOIN Matters AS Matter ON Alert.id = Matter.alertId WHERE Alert.userId = ?",
+    //   "SELECT Alert.id, Alert.date, Alert.matterId, Matter.title FROM Alerts AS a FULL OUTER JOIN Matters AS m ON a.id = m.alertId WHERE a.userId = ?",
     //   //"SELECT * FROM alerts WHERE userId = ?",
     //   {
     //     replacements: [userId],
     //     type: QueryTypes.SELECT,
     //   }
     // );
-    res.send(alerts);
+    const alerts = await models.Alert.findAll({
+      attributes: ["id", "date", "matterId"],
+      include: {
+        model: models.Matter,
+        attributes: ["title"],
+      },
+      where: {
+        userId: userId,
+      },
+    });
+
+    const matters = await models.Matter.findAll({
+      attributes: ["id", "title"],
+      include: {
+        model: models.Alert,
+        attributes: ["date", "matterId"],
+        where: {
+          userId: userId,
+        },
+        required: false,
+      },
+    });
+
+    const result = alerts.concat(matters);
+
+    res.send(result);
+    // res.send(alerts);
   } catch (error) {
     console.log(error);
   }

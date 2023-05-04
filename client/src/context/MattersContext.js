@@ -428,7 +428,8 @@ const MattersProvider = (props) => {
       .then((res) => {
         console.log(res.data);
       })
-      .finally(setActiveMatter(state.activeMatter.id));
+      // .finally(setActiveMatter(state.activeMatter.id));
+      .finally(getAlertList());
   };
 
   return (

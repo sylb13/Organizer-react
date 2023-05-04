@@ -11,7 +11,7 @@ function YearButton(props) {
 
   return (
     <div id="year-button">
-      <FormControl sx={{ marginLeft: 20 }}>
+      <FormControl>
         <InputLabel id="demo-simple-select-label">Year</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -19,7 +19,7 @@ function YearButton(props) {
           onChange={handleYearChange}
           id="demo-simple-select"
           label="Year"
-          sx={{ bgcolor: "#5970AA", m: 1, width: 180 }}
+          sx={{ bgcolor: "#5970AA", width: 180 }}
         >
           <MenuItem value="2021">2021</MenuItem>
           <MenuItem value="2022">2022</MenuItem>

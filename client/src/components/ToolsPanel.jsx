@@ -4,6 +4,7 @@ import YearButton from "./calendar/YearButton";
 import MonthButton from "./calendar/MonthButton";
 import SortMattersButton from "./matters/SortMattersButton";
 import { MattersContext } from "../context/MattersContext";
+import MyNotesWindow from "./notes/MyNotesWindow";
 
 function ToolsPanel(props) {
   const { alertsList, getAlertList } = useContext(MattersContext);
@@ -95,7 +96,9 @@ function ToolsPanel(props) {
   } else if (props.appearance === "notes") {
     return (
       <div id="tools-panel" className="tools-panel">
-        <div className="tools-div"></div>
+        <div className="tools-div">
+          <MyNotesWindow />
+        </div>
         <ExpandingButton
           click={handleButton}
           direction={isPanelHidden ? "right" : "left"}

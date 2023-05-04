@@ -11,7 +11,7 @@ function MonthButton(props) {
 
   return (
     <div>
-      <FormControl sx={{ marginLeft: 20 }}>
+      <FormControl>
         <InputLabel id="demo-simple-select-label">Month</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -19,7 +19,7 @@ function MonthButton(props) {
           onChange={handleMonthChange}
           id="demo-simple-select"
           label="Month"
-          sx={{ bgcolor: "#5970AA", m: 1, width: 180 }}
+          sx={{ bgcolor: "#5970AA", width: 180 }}
         >
           <MenuItem value="Jan">January</MenuItem>
           <MenuItem value="Feb">February</MenuItem>

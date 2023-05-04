@@ -12,11 +12,11 @@ export default function AlertWindow() {
 
   //   const [value, setValue] = useState(activeAlert);
 
-  useEffect(() => {
-    getAlert();
-    // setValue(activeAlert);
-    console.log(activeAlert);
-  }, [activeMatter]);
+  // useEffect(() => {
+  //   getAlert();
+  //   // setValue(activeAlert);
+  //   console.log(activeAlert);
+  // }, [activeAlert]);
 
   const handleChange = (newValue) => {
     // setValue(newValue);

@@ -18,7 +18,7 @@ function SortMattersButton(props) {
 
   return (
     <div id="sort-matter-button">
-      <FormControl sx={{ marginLeft: 20 }}>
+      <FormControl>
         <InputLabel id="demo-simple-select-label">Sort</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -26,7 +26,7 @@ function SortMattersButton(props) {
           onChange={handleSortChange}
           id="demo-simple-select"
           label="Sort"
-          sx={{ bgcolor: "#5970AA", m: 1, width: 200 }}
+          sx={{ bgcolor: "#5970AA", width: 200 }}
         >
           <MenuItem value="newest">listing time: newest</MenuItem>
           <MenuItem value="oldest">listing time: oldest</MenuItem>

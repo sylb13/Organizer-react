@@ -1,6 +1,7 @@
 const userRouter = require("./routers/userRouter");
 const matterRouter = require("./routers/mattersRouter");
 const calendarRouter = require("./routers/calendarRouter");
+const notesRouter = require("./routers/notesRouter");
 
 // Express for node.js
 const express = require("express");
@@ -33,10 +34,7 @@ app.use(
 app.use("/", userRouter);
 app.use("/", matterRouter);
 app.use("/", calendarRouter);
-// app.use("/login", userRouter);
-// app.use("/register", userRouter);
-// app.use("/matters", matterRouter);
-// app.use("/add-new-matter", matterRouter);
+app.use("/", notesRouter);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

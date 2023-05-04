@@ -7,6 +7,7 @@ import CategoriesWindow from "./matters/CategoriesWindow";
 import HandyEndCalendar from "./matters/HandyEndCalendar";
 import HandyStartCalendar from "./matters/HandyStartCalendar";
 import ToDoList from "./matters/ToDoList";
+import DownloadNoteButton from "./notes/DowloadNoteButton";
 
 function DetailsPanel(props) {
   const { activeMatter } = useContext(MattersContext);
@@ -73,7 +74,9 @@ function DetailsPanel(props) {
           click={handleButton}
           direction={isPanelHidden ? "left" : "right"}
         />
-        <div className="details-div"></div>
+        <div className="details-div" style={{ alignItems: "center" }}>
+          <DownloadNoteButton />
+        </div>
       </div>
     );
   }

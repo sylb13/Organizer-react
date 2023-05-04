@@ -9,6 +9,7 @@ import ContactsScreen from "./screens/ContactsScreen";
 import DayScreen from "./screens/DayScreen";
 import { MattersProvider } from "./context/MattersContext";
 import { CalendarProvider } from "./context/CalendarContext";
+import { NotesProvider } from "./context/NotesContext";
 
 function App() {
   return (
@@ -19,13 +20,13 @@ function App() {
 
       <MattersProvider>
         <CalendarProvider>
-          <Route path="/matters" component={MattersScreen} exact />
-          <Route path="/calendar" component={CalendarScreen} exact />
-          <Route path="/day-screen" component={DayScreen} exact />
-
-          <Route path="/notes" component={NotesScreen} exact />
-
-          <Route path="/contacts" component={ContactsScreen} exact />
+          <NotesProvider>
+            <Route path="/matters" component={MattersScreen} exact />
+            <Route path="/calendar" component={CalendarScreen} exact />
+            <Route path="/day-screen" component={DayScreen} exact />
+            <Route path="/notes" component={NotesScreen} exact />
+            <Route path="/contacts" component={ContactsScreen} exact />
+          </NotesProvider>
         </CalendarProvider>
       </MattersProvider>
     </BrowserRouter>
