@@ -7,7 +7,7 @@ export default function DayEvent(props) {
     setActiveMatter,
     setActiveToDoList,
     activeMatter,
-    activeToDoList,
+    hideOrShowDoneMatters,
   } = useContext(MattersContext);
   const [isActive, setIsActive] = useState(
     activeMatter.id === props.matterId ? true : false
@@ -43,7 +43,9 @@ export default function DayEvent(props) {
     }
   }, [activeMatter]);
 
-  return (
+  return hideOrShowDoneMatters === true && props.isDone === true ? (
+    <div hidden={true}></div>
+  ) : (
     <div
       className="day-event"
       style={

@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { MattersContext } from "../../context/MattersContext";
 
 function Matter({
+  isDone,
+  isExpired,
   content,
   matterId,
   hasToDoList,
@@ -9,10 +11,56 @@ function Matter({
   hasCategory,
   hasAlertSet,
 }) {
-  const { activeMatter, setActiveMatter, setMatterTitle, setActiveToDoList } =
-    useContext(MattersContext);
+  const {
+    activeMatter,
+    setActiveMatter,
+    setMatterTitle,
+    setActiveToDoList,
+    hideOrShowDoneMatters,
+    hideOrShowExpiredMatters,
+  } = useContext(MattersContext);
 
   const [mattersContent, setMattersContent] = useState(content);
+  // const [toDoListFlag, setToDoListFlag] = useState(hasToDoList);
+  const [isDoneFlag, setIsDoneFlag] = useState(isDone);
+  // const [categoryFlag, setCategoryFlag] = useState(hasCategory);
+  // const [dateFlag, setDateFlag] = useState(isAssignedInCalendar);
+
+  useEffect(() => {
+    if (activeMatter.id === matterId) {
+      if (activeMatter.isDone === true) {
+        setIsDoneFlag(true);
+      } else {
+        setIsDoneFlag(false);
+      }
+      // if (activeMatter.toDoListId !== null) {
+      //   setToDoListFlag(true);
+      //   hasToDoList = true;
+      // } else {
+      //   setToDoListFlag(false);
+      //   hasToDoList = false;
+      // }
+      // if (activeMatter.categoryId !== null) {
+      //   setCategoryFlag(true);
+      //   hasCategory = true;
+      // } else {
+      //   setCategoryFlag(false);
+      //   hasCategory = false;
+      // }
+      // if (activeMatter.startDate !== null) {
+      //   setDateFlag(true);
+      //   isAssignedInCalendar = true;
+      // } else {
+      //   setDateFlag(false);
+      //   isAssignedInCalendar = false;
+      // }
+    }
+  }, [
+    activeMatter.isDone,
+    // activeMatter.startDate,
+    // activeMatter.toDoListId,
+    // activeMatter.categoryId,
+  ]);
 
   const handleMatterChange = (event) => {
     setMattersContent(event.target.value);
@@ -29,7 +77,11 @@ function Matter({
     // }
   };
 
-  return (
+  return hideOrShowDoneMatters === true && isDoneFlag === true ? (
+    <div hidden={true}></div>
+  ) : hideOrShowExpiredMatters === true && isExpired === true ? (
+    <div hidden={true}></div>
+  ) : (
     <div
       className="matter-div"
       onClick={() => {
@@ -38,6 +90,12 @@ function Matter({
       style={
         activeMatter.id === matterId
           ? { backgroundColor: "#fce5b0" }
+          : isExpired === true && isDoneFlag === true
+          ? { opacity: "0.7", filter: "blur(1px)", backgroundColor: "#CCCCCC" }
+          : isExpired === true
+          ? { opacity: "0.7", filter: "blur(1px)" }
+          : isDoneFlag === true
+          ? { backgroundColor: "#CCCCCC" }
           : { backgroundColor: "#FFF8E6" }
       }
     >

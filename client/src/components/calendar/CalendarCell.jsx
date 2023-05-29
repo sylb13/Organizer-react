@@ -23,12 +23,41 @@ function CalendarCell(props) {
       goToDayScreen(); //to tak tylko dla zasyngalizowania co tu ma się dziać, ta funkcja normalnie nie działa
     }
   };
+  // Ostatecznie usunąłem opcję chowania i pokazywania wygaslych spraw w kalendarzu bo... przecież to widać gołym okiem które wygasly :D
+  // const checkIfExpired = (matter) => {
+  //   if (matter.endDate !== null) {
+  //     let currentDate = new Date();
+  //     let dateToCompare;
+  //     if (matter.endTime !== null) {
+  //       dateToCompare = new Date(
+  //         Date.parse(matter.endDate.concat(" ", matter.endTime))
+  //       );
+  //       if (currentDate > dateToCompare) {
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+  //     } else {
+  //       dateToCompare = new Date(
+  //         Date.parse(matter.endDate.concat(" 00:00:00 " + currentGMT))
+  //       );
+  //       if (currentDate > dateToCompare) {
+  //         return true;
+  //       } else {
+  //         return false;
+  //       }
+  //     }
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
   const MATTERS = props.event?.map((matter) => (
     <CalendarEvent
       key={props.event.indexOf(matter)}
       matterDetails={props.event[props.event.indexOf(matter)].matter}
       //   title={props.event[props.event.indexOf(matter)].matter.title}
+      // isExpired={checkIfExpired(props.event[props.event.indexOf(matter)].matter)}
     />
   ));
 

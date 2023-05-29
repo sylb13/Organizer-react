@@ -2,15 +2,20 @@ import React, { useReducer } from "react";
 import axios from "axios";
 import { createContext } from "react";
 
+const date = new Date();
+
 const initialState = {
   matters: null,
   activeMatter: { id: 0 },
   toDoList: null,
   activeToDoList: null,
-  sort: "",
+  sort: "newest",
   categories: null,
   alerts: null,
   alert: null,
+  hideOrShowDoneMatters: false,
+  hideOrShowExpiredMatters: false,
+  currentGMT: date.toString().slice(25, 33),
 };
 
 const MattersReducer = (state, action) => {
@@ -71,6 +76,17 @@ const MattersReducer = (state, action) => {
       return {
         ...state,
         alert: action.payload,
+      };
+
+    case "HIDE_OR_SHOW_DONE_MATTERS":
+      return {
+        ...state,
+        hideOrShowDoneMatters: action.payload,
+      };
+    case "HIDE_OR_SHOW_EXPIRED_MATTERS":
+      return {
+        ...state,
+        hideOrShowExpiredMatters: action.payload,
       };
 
     default:
@@ -160,6 +176,38 @@ const MattersProvider = (props) => {
         console.log("Zrobiłem zmianę na " + content);
       });
   };
+
+  const markMatterAsDone = (state, id) => {
+    axios
+      .post("http://localhost:3000/mark-matter-as-done", {
+        isDone: state,
+        id: id,
+      })
+      .then((res) => {
+        console.log("isDone zmieniło się na " + state);
+      });
+  };
+
+  const setHideOrShowDoneMatters = (isHidden) => {
+    dispatch({
+      type: "HIDE_OR_SHOW_DONE_MATTERS",
+      payload: isHidden,
+    });
+    if (isHidden === true) {
+      setActiveMatter(null);
+    }
+  };
+
+  const setHideOrShowExpiredMatters = (isHidden) => {
+    dispatch({
+      type: "HIDE_OR_SHOW_EXPIRED_MATTERS",
+      payload: isHidden,
+    });
+    if (isHidden === true) {
+      setActiveMatter(null);
+    }
+  };
+
   // -------------------------------------   TO DO LIST   -------------------------------------------
   const getToDoList = (id) => {
     let activeToDoList = id;
@@ -443,11 +491,16 @@ const MattersProvider = (props) => {
         categories: state.categories,
         activeAlert: state.alert,
         alertsList: state.alerts,
+        hideOrShowDoneMatters: state.hideOrShowDoneMatters,
+        hideOrShowExpiredMatters: state.hideOrShowExpiredMatters,
+        currentGMT: state.currentGMT,
         getMatters,
         setSortType,
         addEmptyMatter,
         setActiveMatter,
         setMatterTitle,
+        setHideOrShowDoneMatters,
+        setHideOrShowExpiredMatters,
         setActiveToDoList,
         addNewToDoList,
         getToDoList,
@@ -458,6 +511,7 @@ const MattersProvider = (props) => {
         markAsDone,
         setMattersDate,
         setMattersTime,
+        markMatterAsDone,
         getCategories,
         updateCategoryName,
         setCategoryColor,

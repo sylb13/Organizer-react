@@ -33,6 +33,7 @@ export default function DayWindow(props) {
       categoryId={matter.categoryId}
       description={matter.title}
       matterId={matter.id}
+      isDone={matter.isDone}
     />
   ));
   const MONTHS = {

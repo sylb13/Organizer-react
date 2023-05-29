@@ -11,8 +11,8 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
-      description: {
-        type: Sequelize.TEXT,
+      isDone: {
+        type: Sequelize.BOOLEAN,
       },
       startDate: {
         type: Sequelize.STRING,

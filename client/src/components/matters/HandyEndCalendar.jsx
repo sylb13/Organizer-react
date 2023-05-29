@@ -9,8 +9,13 @@ import { TimePicker } from "@mui/x-date-pickers";
 import { Switch } from "@mui/material";
 
 export default function HandyEndCalendar() {
-  const { activeMatter, setActiveMatter, setMattersDate, setMattersTime } =
-    useContext(MattersContext);
+  const {
+    activeMatter,
+    setActiveMatter,
+    setMattersDate,
+    setMattersTime,
+    currentGMT,
+  } = useContext(MattersContext);
   useEffect(() => {
     setDate(() => {
       let mattersDate = new Date();
@@ -23,7 +28,9 @@ export default function HandyEndCalendar() {
               activeMatter.endTime
             );
           } else {
-            mattersDate = activeMatter.endDate.concat(" 00:00:00 GMT+0100");
+            mattersDate = activeMatter.endDate.concat(
+              " 00:00:00 " + currentGMT
+            );
           }
         }
       }
@@ -88,7 +95,7 @@ export default function HandyEndCalendar() {
     let dateToString;
     if (activeMatter.startTime === null) {
       dateToCompare = new Date(
-        Date.parse(activeMatter.startDate.concat(" 00:00:00 GMT+0100"))
+        Date.parse(activeMatter.startDate.concat(" 00:00:00 " + currentGMT))
       );
     } else {
       dateToCompare = new Date(

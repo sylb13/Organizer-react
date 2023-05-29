@@ -7,7 +7,7 @@ export default function CalendarEvent(props) {
   //   console.log("refreshed");
   // }, [props]);
   const { selectEvent, selectedEvent } = useContext(CalendarContext);
-  const { categories } = useContext(MattersContext);
+  const { categories, hideOrShowDoneMatters } = useContext(MattersContext);
   // const [selected, setSelected] = useState(false);
   const handleClick = () => {
     //    setSelected(!selected);
@@ -34,7 +34,10 @@ export default function CalendarEvent(props) {
     }
   };
 
-  return (
+  return hideOrShowDoneMatters === true &&
+    props.matterDetails.isDone === true ? (
+    <div hidden={true}></div>
+  ) : (
     <div
       className="calendar-event"
       onClick={handleClick}

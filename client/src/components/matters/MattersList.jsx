@@ -3,21 +3,65 @@ import Matter from "./Matter";
 import { MattersContext } from "../../context/MattersContext";
 
 function MattersList() {
-  const { sort, matters, getMatters } = useContext(MattersContext);
+  const {
+    sort,
+    matters,
+    getMatters,
+    activeMatter,
+    hideOrShowDoneMatters,
+    hideOrShowExpiredMatters,
+    currentGMT,
+  } = useContext(MattersContext);
 
   useEffect(() => {
     console.log("matters_list_use_effect");
     getMatters();
-  }, [sort]);
+  }, [
+    sort,
+    activeMatter.id,
+    activeMatter.isDone,
+    hideOrShowDoneMatters,
+    hideOrShowExpiredMatters,
+  ]);
 
   function handleClickOnMatter(matterId) {
     let markedMatter = matterId.toString();
     console.log(markedMatter);
   }
 
+  const checkIfExpired = (matter) => {
+    if (matter.endDate !== null) {
+      let currentDate = new Date();
+      let dateToCompare;
+      if (matter.endTime !== null) {
+        dateToCompare = new Date(
+          Date.parse(matter.endDate.concat(" ", matter.endTime))
+        );
+        if (currentDate > dateToCompare) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        dateToCompare = new Date(
+          Date.parse(matter.endDate.concat(" 00:00:00 " + currentGMT))
+        );
+        if (currentDate > dateToCompare) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    } else {
+      return false;
+    }
+  };
+
   const MATTER_LIST = matters?.map((matter) => (
     <Matter
       key={matter.id}
+      isDone={matter.isDone}
+      isExpired={checkIfExpired(matter)}
       onMatter={handleClickOnMatter}
       matterId={matter.id}
       content={matter.title}

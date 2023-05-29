@@ -4,10 +4,10 @@ import EventDetails from "./calendar/EventDetails";
 import ExpandingButton from "./ExpandingButton";
 import AlertWindow from "./matters/AlertWindow";
 import CategoriesWindow from "./matters/CategoriesWindow";
-import HandyEndCalendar from "./matters/HandyEndCalendar";
 import HandyStartCalendar from "./matters/HandyStartCalendar";
 import ToDoList from "./matters/ToDoList";
 import DownloadNoteButton from "./notes/DowloadNoteButton";
+import StatusCheckbox from "./matters/StatusCheckbox";
 
 function DetailsPanel(props) {
   const { activeMatter } = useContext(MattersContext);
@@ -43,6 +43,7 @@ function DetailsPanel(props) {
           direction={isPanelHidden ? "left" : "right"}
         />
         <div className="details-div">
+          <StatusCheckbox />
           <ToDoList />
           <HandyStartCalendar />
           <CategoriesWindow />
@@ -58,6 +59,7 @@ function DetailsPanel(props) {
           direction={isPanelHidden ? "left" : "right"}
         />
         <div className="details-div">
+          <StatusCheckbox />
           <ToDoList />
           <CategoriesWindow />
           <h2>

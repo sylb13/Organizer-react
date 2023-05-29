@@ -5,6 +5,7 @@ import MonthButton from "./calendar/MonthButton";
 import SortMattersButton from "./matters/SortMattersButton";
 import { MattersContext } from "../context/MattersContext";
 import MyNotesWindow from "./notes/MyNotesWindow";
+import FilterSwitches from "./matters/FilterSwitches";
 
 function ToolsPanel(props) {
   const { alertsList, getAlertList } = useContext(MattersContext);
@@ -61,6 +62,7 @@ function ToolsPanel(props) {
         <div className="tools-div">
           <YearButton onSubmit={changeYear} />
           <MonthButton onSubmit={changeMonth} />
+          <FilterSwitches show="done-only" />
           {/* <button
             style={{ width: "300px", height: "200px" }}
             onClick={() => {
@@ -80,6 +82,7 @@ function ToolsPanel(props) {
       <div id="tools-panel" className="tools-panel">
         <div className="tools-div">
           <SortMattersButton />
+          <FilterSwitches show="both" />
           {/* <button
             style={{ width: "300px", height: "200px" }}
             onClick={() => {

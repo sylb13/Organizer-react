@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Matter.init(
     {
       title: DataTypes.STRING,
-      description: DataTypes.TEXT,
+      isDone: DataTypes.BOOLEAN,
       startDate: DataTypes.STRING,
       endDate: DataTypes.STRING,
       startTime: DataTypes.STRING,

@@ -10,8 +10,13 @@ import { Switch } from "@mui/material";
 import HandyEndCalendar from "./HandyEndCalendar";
 
 export default function HandyStartCalendar() {
-  const { activeMatter, setMattersDate, setMattersTime, setActiveMatter } =
-    useContext(MattersContext);
+  const {
+    activeMatter,
+    setMattersDate,
+    setMattersTime,
+    setActiveMatter,
+    currentGMT,
+  } = useContext(MattersContext);
   useEffect(() => {
     setDate(() => {
       let mattersDate = new Date();
@@ -24,7 +29,9 @@ export default function HandyStartCalendar() {
               activeMatter.startTime
             );
           } else {
-            mattersDate = activeMatter.startDate.concat(" 00:00:00 GMT+0100");
+            mattersDate = activeMatter.startDate.concat(
+              " 00:00:00 " + currentGMT
+            );
           }
         }
       }
@@ -97,7 +104,7 @@ export default function HandyStartCalendar() {
     } else {
       if (activeMatter.endTime === null) {
         dateToCompare = new Date(
-          Date.parse(activeMatter.endDate.concat(" 00:00:00 GMT+0100"))
+          Date.parse(activeMatter.endDate.concat(" 00:00:00 " + currentGMT))
         );
       } else {
         dateToCompare = new Date(

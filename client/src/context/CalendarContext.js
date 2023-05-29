@@ -24,6 +24,7 @@ const initialState = {
   chosenYear: date.getFullYear().toString(),
   chosenDay: date.getDay() + 1,
   selectedEvent: { id: null },
+  currentGMT: date.toString().slice(25, 33),
 };
 
 const CalendarReducer = (state, action) => {
@@ -125,6 +126,7 @@ const CalendarProvider = (props) => {
         chosenYear: state.chosenYear,
         chosenDay: state.chosenDay,
         selectedEvent: state.selectedEvent,
+        currentGMT: state.currentGMT,
         getCalendarMatters,
         setChosenMonth,
         setChosenYear,

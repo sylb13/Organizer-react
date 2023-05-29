@@ -48,7 +48,7 @@ router.get("/matters/:sort", async (req, res) => {
           where: {
             userId: req.session.user.userId,
           },
-          order: [["startDay", "DESC"]],
+          order: [["startDate", "DESC"]],
         });
         break;
       case "latest":
@@ -56,7 +56,7 @@ router.get("/matters/:sort", async (req, res) => {
           where: {
             userId: req.session.user.userId,
           },
-          order: [["startDay", "ASC"]],
+          order: [["startDate", "ASC"]],
         });
         break;
       case "a-z":
@@ -161,6 +161,26 @@ router.post("/add-new-matter", async (req, res) => {
       }
     );
     res.send("A new matter added");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.post("/mark-matter-as-done", async (req, res) => {
+  try {
+    const isDone = req.body.isDone;
+    const matterId = parseInt(req.body.id);
+    models.Matter.update(
+      {
+        isDone: isDone,
+      },
+      {
+        where: {
+          id: matterId,
+        },
+      }
+    );
+    res.send("Marked/unmarked");
   } catch (error) {
     console.log(error);
   }
