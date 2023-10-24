@@ -89,4 +89,18 @@ router.post("/set-note-content-change", async (req, res) => {
   }
 });
 
+router.post("/delete-note", async (req, res) => {
+  try {
+    const noteId = req.body.id;
+    await models.Note.destroy({
+      where: {
+        id: noteId,
+      },
+    });
+    res.status(201).send("Deleted");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;

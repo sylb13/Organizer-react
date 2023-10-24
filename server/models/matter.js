@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Matter.belongsToMany(models.User, {
+        through: "MatterUsers",
+        foreignKey: "matterId",
+      });
+      Matter.hasOne(models.Alert, {
+        foreignKey: "matterId",
+      });
     }
   }
   Matter.init(

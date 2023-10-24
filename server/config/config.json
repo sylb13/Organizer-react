@@ -2,7 +2,7 @@
   "development": {
     "username": "Sylwek",
     "password": null,
-    "database": "inzynierka",
+    "database": "Inzynierka3",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

@@ -8,6 +8,9 @@ import HandyStartCalendar from "./matters/HandyStartCalendar";
 import ToDoList from "./matters/ToDoList";
 import DownloadNoteButton from "./notes/DowloadNoteButton";
 import StatusCheckbox from "./matters/StatusCheckbox";
+import SharingWindow from "./matters/SharingWindow";
+import DeleteMatterButton from "./matters/DeleteMatterButton";
+import DeleteNoteButton from "./notes/DeleteNoteButton";
 
 function DetailsPanel(props) {
   const { activeMatter } = useContext(MattersContext);
@@ -48,6 +51,8 @@ function DetailsPanel(props) {
           <HandyStartCalendar />
           <CategoriesWindow />
           <AlertWindow />
+          <SharingWindow />
+          <DeleteMatterButton />
         </div>
       </div>
     );
@@ -78,6 +83,7 @@ function DetailsPanel(props) {
         />
         <div className="details-div" style={{ alignItems: "center" }}>
           <DownloadNoteButton />
+          <DeleteNoteButton />
         </div>
       </div>
     );

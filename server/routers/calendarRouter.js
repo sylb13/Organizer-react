@@ -10,9 +10,33 @@ router.get("/get-calendar-matters:month-:year", async (req, res) => {
     //console.log("Jestem tu też");
     const month = req.params.month;
     const year = req.params.year;
+    // const calendarMatters = await models.Matter.findAll({
+    //   where: {
+    //     userId: req.session.user.userId,
+    //     [Op.or]: [
+    //       {
+    //         startDate: {
+    //           [Op.and]: {
+    //             [Op.substring]: month,
+    //             [Op.endsWith]: year,
+    //           },
+    //         },
+    //       },
+    //       {
+    //         endDate: {
+    //           [Op.and]: {
+    //             [Op.substring]: month,
+    //             [Op.endsWith]: year,
+    //           },
+    //         },
+    //       },
+    //     ],
+    //   },
+    //   order: [["startDate", "ASC"]],
+    // });
     const calendarMatters = await models.Matter.findAll({
       where: {
-        userId: req.session.user.userId,
+        // userId: req.session.user.userId,
         [Op.or]: [
           {
             startDate: {
@@ -32,6 +56,13 @@ router.get("/get-calendar-matters:month-:year", async (req, res) => {
           },
         ],
       },
+      include: [
+        {
+          model: models.User,
+          where: { id: req.session.user.userId },
+          attributes: [],
+        },
+      ],
       order: [["startDate", "ASC"]],
     });
     res.send(calendarMatters);

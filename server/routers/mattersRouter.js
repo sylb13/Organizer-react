@@ -9,11 +9,23 @@ const { QueryTypes } = require("sequelize");
 
 router.get("/matters", async (req, res) => {
   try {
-    let matters = await models.Matter.findAll({
-      where: {
-        userId: req.session.user.userId,
-      },
+    // let matters = await models.Matter.findAll({
+    //   where: {
+    //     userId: req.session.user.userId,
+    //   },
+    // });
+    const matters = await models.Matter.findAll({
+      include: [
+        {
+          model: models.User,
+          where: {
+            userId: req.session.user.userId,
+          },
+          through: { attributes: [] },
+        },
+      ],
     });
+    console.log(matters);
     res.send(matters);
   } catch (error) {
     console.log(error);
@@ -28,60 +40,113 @@ router.get("/matters/:sort", async (req, res) => {
     console.log(sortType);
     switch (sortType) {
       case "newest":
+        // matters = await models.Matter.findAll({
+        //   where: {
+        //     userId: req.session.user.userId,
+        //   },
+        //   order: [["createdAt", "DESC"]],
+        // });
         matters = await models.Matter.findAll({
-          where: {
-            userId: req.session.user.userId,
-          },
+          include: [
+            {
+              model: models.User,
+              where: {
+                id: req.session.user.userId,
+              },
+              through: { attributes: [] },
+            },
+          ],
           order: [["createdAt", "DESC"]],
         });
         break;
       case "oldest":
+        // matters = await models.Matter.findAll({
+        //   where: {
+        //     userId: req.session.user.userId,
+        //   },
+        //   order: [["createdAt", "ASC"]],
+        // });
         matters = await models.Matter.findAll({
-          where: {
-            userId: req.session.user.userId,
-          },
+          include: [
+            {
+              model: models.User,
+              where: {
+                id: req.session.user.userId,
+              },
+              through: { attributes: [] },
+            },
+          ],
           order: [["createdAt", "ASC"]],
         });
         break;
       case "soonest":
+        // matters = await models.Matter.findAll({
+        //   where: {
+        //     userId: req.session.user.userId,
+        //   },
+        //   order: [["startDate", "DESC"]],
+        // });
         matters = await models.Matter.findAll({
-          where: {
-            userId: req.session.user.userId,
-          },
+          include: [
+            {
+              model: models.User,
+              where: {
+                id: req.session.user.userId,
+              },
+              through: { attributes: [] },
+            },
+          ],
           order: [["startDate", "DESC"]],
         });
         break;
       case "latest":
+        // matters = await models.Matter.findAll({
+        //   where: {
+        //     userId: req.session.user.userId,
+        //   },
+        //   order: [["startDate", "ASC"]],
+        // });
         matters = await models.Matter.findAll({
-          where: {
-            userId: req.session.user.userId,
-          },
+          include: [
+            {
+              model: models.User,
+              where: {
+                id: req.session.user.userId,
+              },
+              through: { attributes: [] },
+            },
+          ],
           order: [["startDate", "ASC"]],
         });
         break;
       case "a-z":
         matters = await models.Matter.findAll({
-          where: {
-            userId: req.session.user.userId,
-          },
+          include: [
+            {
+              model: models.User,
+              where: {
+                id: req.session.user.userId,
+              },
+              through: { attributes: [] },
+            },
+          ],
           order: [["title", "ASC"]],
         });
         break;
       case "z-a":
         matters = await models.Matter.findAll({
-          where: {
-            userId: req.session.user.userId,
-          },
+          include: [
+            {
+              model: models.User,
+              where: {
+                id: req.session.user.userId,
+              },
+              through: { attributes: [] },
+            },
+          ],
           order: [["title", "DESC"]],
         });
         break;
-      //   case "null":
-      //     matters = await models.Matter.findAll({
-      //       where: {
-      //         userId: req.session.user.userId,
-      //       },
-      //     });
-      //break;
       default:
         matters = await models.Matter.findAll({
           where: {
@@ -143,8 +208,15 @@ router.post("/add-new-matter", async (req, res) => {
       //no properties - just empty matter
       userId: userId,
     });
+
     let persistedMatter = await matter.save();
+    let matterUser = models.MatterUser.build({
+      userId: userId,
+      matterId: persistedMatter.dataValues.id,
+    });
+    let persistedMatterUser = await matterUser.save();
     console.log(persistedMatter);
+    console.log(persistedMatterUser);
     let alert = models.Alert.build({
       matterId: persistedMatter.dataValues.id,
       userId: userId,
@@ -185,6 +257,21 @@ router.post("/mark-matter-as-done", async (req, res) => {
     console.log(error);
   }
 });
+
+router.post("/delete-matter", async (req, res) => {
+  try {
+    const matterId = req.body.id;
+    await models.Matter.destroy({
+      where: {
+        id: matterId,
+      },
+    });
+    res.status(201).send("Deleted");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // -------------------------------------   TO DO LIST   -------------------------------------------
 router.post("/add-new-todolist", async (req, res) => {
   try {
@@ -430,6 +517,7 @@ router.get("/get-categories", async (req, res) => {
       },
       order: [["createdAt", "ASC"]],
     });
+
     res.send(categories);
   } catch (error) {
     console.log(error);
@@ -444,6 +532,7 @@ router.post("/add-new-category", async (req, res) => {
       userId: userId,
     });
     await category.save();
+
     res.status(201).send("Added");
   } catch (error) {
     console.log(error);
@@ -564,6 +653,20 @@ router.post("/set-alert", async (req, res) => {
 router.get("/get-alerts", async (req, res) => {
   try {
     const userId = parseInt(req.session.user.userId);
+    const alerts = await models.Alert.findAll({
+      include: [
+        {
+          model: models.Matter,
+          attributes: ["title"],
+          include: [
+            {
+              model: models.User,
+              where: { id: userId },
+            },
+          ],
+        },
+      ],
+    });
     // const alerts = await models.Alert.findAll({
     //   where: {
     //     userId: userId,
@@ -578,33 +681,34 @@ router.get("/get-alerts", async (req, res) => {
     //     type: QueryTypes.SELECT,
     //   }
     // );
-    const alerts = await models.Alert.findAll({
-      attributes: ["id", "date", "matterId"],
-      include: {
-        model: models.Matter,
-        attributes: ["title"],
-      },
-      where: {
-        userId: userId,
-      },
-    });
+    // const alerts = await models.Alert.findAll({
+    //   attributes: ["id", "date", "matterId"],
+    //   include: {
+    //     model: models.Matter,
+    //     attributes: ["title"],
+    //   },
+    //   where: {
+    //     userId: userId,
+    //   },
+    // });
 
-    const matters = await models.Matter.findAll({
-      attributes: ["id", "title"],
-      include: {
-        model: models.Alert,
-        attributes: ["date", "matterId"],
-        where: {
-          userId: userId,
-        },
-        required: false,
-      },
-    });
+    // const matters = await models.Matter.findAll({
+    //   attributes: ["id", "title"],
+    //   include: {
+    //     model: models.Alert,
+    //     attributes: ["date", "matterId"],
+    //     where: {
+    //       userId: userId,
+    //     },
+    //     required: false,
+    //   },
+    // });
 
-    const result = alerts.concat(matters);
+    // const result = alerts.concat(matters);
 
-    res.send(result);
-    // res.send(alerts);
+    // res.send(result);
+    console.log(alerts[0].Matter.title);
+    res.send(alerts);
   } catch (error) {
     console.log(error);
   }
@@ -620,6 +724,46 @@ router.get("/get-alert:matterId", async (req, res) => {
       },
     });
     res.send(alert);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// -------------------------------------   SHARING   -------------------------------------------
+
+router.post("/matter/share", async (req, res) => {
+  try {
+    const email = req.body.emailAddress;
+    const matterId = req.body.matterId;
+    const doesTheEmailExist = await models.User.findAll({
+      where: {
+        email: email,
+      },
+    });
+    const hasTheMatterBeenAlreadyShared = await models.MatterUser.findAll({
+      where: {
+        matterId: matterId,
+        userId: doesTheEmailExist[0].dataValues.id,
+      },
+    });
+    console.log(hasTheMatterBeenAlreadyShared);
+    if (hasTheMatterBeenAlreadyShared.length === 0) {
+      if (doesTheEmailExist.length !== 0) {
+        console.log(doesTheEmailExist);
+        console.log(doesTheEmailExist[0].dataValues.id);
+        let shareTheMatter = models.MatterUser.build({
+          matterId: matterId,
+          userId: doesTheEmailExist[0].dataValues.id,
+        });
+        await shareTheMatter.save();
+        res.send(true);
+      } else {
+        res.send(false);
+      }
+    } else {
+      let message = "Ta sprawa już została udostępniona temu użytkownikowi.";
+      res.send(message);
+    }
   } catch (error) {
     console.log(error);
   }

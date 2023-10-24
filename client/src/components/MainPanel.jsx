@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
 import React from "react";
+import axios from "axios";
 
 function MainPanel() {
+  const handleLogout = () => {
+    axios
+      .post("/logout")
+      .then((res) => {
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        console.error("Logout error", error);
+      });
+  };
   return (
     <section className="main-panel-section">
       <div className="main-panel">
@@ -9,11 +20,11 @@ function MainPanel() {
         {/* <a href="/matters">Matters</a> */}
         <Link to={"/calendar"}> Calendar </Link>
         <Link to={"/notes"}> Notes </Link>
-        <Link to={"/Contacts"}> Contacts </Link>
-
-        {/* <a href="/calendar">Calendar</a>
-            <a href="/categories">Categories</a>
-            <a href="/contacts">Contacts</a> */}
+        <button
+          className="logout-button"
+          title="Logout"
+          onClick={handleLogout}
+        ></button>
       </div>
     </section>
   );

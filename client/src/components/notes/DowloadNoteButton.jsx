@@ -15,7 +15,9 @@ const DownloadNoteButton = () => {
     document.body.removeChild(element);
   };
 
-  return (
+  return activeNote.id === 0 ? (
+    <div></div>
+  ) : (
     <button className="download-note-button" onClick={handleSave}>
       Download this note
     </button>

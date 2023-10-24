@@ -8,33 +8,36 @@ import MyNotesWindow from "./notes/MyNotesWindow";
 import FilterSwitches from "./matters/FilterSwitches";
 
 function ToolsPanel(props) {
-  const { alertsList, getAlertList } = useContext(MattersContext);
   const [isPanelHidden, setIsPanelHidden] = React.useState(true);
-  const dateEngine = new Date();
-  useEffect(() => {
-    if (alertsList !== null) {
-      alertsList.map((alert) => createAlerts(alert));
-    }
-  }, [alertsList]);
+  // const dateEngine = new Date();
+  // let timeoutIds = [];
+  // useEffect(() => {
+  //   if (alertsList !== null && alertsList !== undefined) {
+  //     console.log(timeoutIds);
+  //     timeoutIds.forEach((timeoutId) => clearTimeout(timeoutId));
+  //     alertsList.map((alert) => createAlerts(alert));
+  //   }
+  // }, [alertsList]);
 
-  const createAlerts = (x) => {
-    console.log(x.date);
-    console.log(dateEngine.getTime(x.date)); // data z alertu jest w złym formacie.... nie mam zielonego pojęcia jak ją przekonwertować, a przez to
-    //że jest w złym formacie to getTime domyślnie bierze sobie obecną datę
-    let alertDate = new Date(x.date);
-    let alertDateUTC = alertDate.toUTCString();
-    let alertDateUTCDate = new Date(alertDateUTC);
-    let alertDateMiliseconds = alertDateUTCDate.getTime();
-    let currentDate = dateEngine.getTime();
-    console.log(alertDate);
-    console.log(currentDate);
-    console.log(alertDateMiliseconds - currentDate);
-    if (alertDateMiliseconds - currentDate > 0) {
-      setTimeout(() => {
-        alert("Chyba działa");
-      }, alertDateMiliseconds - currentDate);
-    }
-  };
+  // const createAlerts = (x) => {
+  //   console.log("Wchodzę w createAlerts");
+  //   let alertDate = new Date(x.date);
+  //   let alertDateUTC = alertDate.toUTCString();
+  //   let alertDateUTCDate = new Date(alertDateUTC);
+  //   let alertDateMiliseconds = alertDateUTCDate.getTime();
+  //   console.log(alertDateMiliseconds);
+  //   let currentDate = dateEngine.getTime();
+  //   console.log(currentDate);
+  //   // console.log(alertDateMiliseconds - currentDate);
+  //   if (alertDateMiliseconds - currentDate > 0) {
+  //     console.log("Zaraz stwrzę alert");
+  //     const timeoutId = setTimeout(() => {
+  //       alert("Alert związany z wydarzeniem! Alert ID: " + timeoutId);
+  //     }, alertDateMiliseconds - currentDate);
+  //     console.log(timeoutId);
+  //     timeoutIds.push(timeoutId);
+  //   }
+  // };
 
   function handleButton() {
     setIsPanelHidden(!isPanelHidden);
@@ -51,10 +54,6 @@ function ToolsPanel(props) {
   function changeYear(eventFromYearButton) {
     props.onYearChange(eventFromYearButton);
   }
-
-  // const probna = () => {
-  //   getAlertList();
-  // };
 
   if (props.appearance === "calendar" || props.appearance === "day-screen") {
     return (

@@ -1,29 +1,26 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Alert extends Model {
+  class MatterUser extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Alert.belongsTo(models.Matter, {
-        foreignKey: "matterId",
-        onDelete: "CASCADE",
-      });
+      // define association here
     }
   }
-  Alert.init(
+  MatterUser.init(
     {
-      date: DataTypes.DATE,
+      // matterUserId: DataTypes.INTEGER,
       matterId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "Alert",
+      modelName: "MatterUser",
     }
   );
-  return Alert;
+  return MatterUser;
 };

@@ -94,6 +94,15 @@ const NotesProvider = (props) => {
       });
   };
 
+  const deleteNote = (id) => {
+    axios
+      .post("http://localhost:3000/delete-note", {
+        id: id,
+      })
+      .then((res) => console.log("The note has been deleted"))
+      .finally(() => getNotes());
+  };
+
   return (
     <NotesContext.Provider
       value={{
@@ -104,6 +113,7 @@ const NotesProvider = (props) => {
         setActiveNote,
         setNoteTitle,
         setNoteContent,
+        deleteNote,
       }}
       {...props}
     />

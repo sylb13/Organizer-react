@@ -47,6 +47,20 @@ ul {
 }
 
 /* ------------- MAIN PANEL ------------- */
+
+.logout-button{
+  background-image: url(logout.png);
+  width: 22px;
+  height: 22px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-color: inherit;
+  border: none;
+  margin-bottom: 15px;
+  padding: 0%;
+  cursor: pointer;
+}
+
 .main-panel-section {
   grid-row: 1/2;
   grid-column: 2/3;
@@ -310,7 +324,7 @@ ul {
 }
 /* ------------- CATEGORIES WINDOW ------------- */
 
-.categories-window, .alert-window-div{
+.categories-window, .alert-window-div, .share-window-div{
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -378,8 +392,28 @@ ul {
 
 .alert-window-div{
   height: 120px;
-  margin-bottom: 40px;
   padding-bottom:10px;
+}
+
+/* ---------------------- SHARE ---------------------- */
+
+.share-window-div{
+  height: 160px;
+  margin-bottom: 20px;
+  padding-bottom:10px;
+  
+}
+
+.share-button, .yes-delete-button, .no-delete-button{
+  border-radius: 10px;
+  height: 30px;
+  width: 80px;
+  font-size: 14px;
+  background-color: #C6B4CE;
+  margin-top: 15px;
+}
+.share-button:hover{
+background-color: #9b72aa;
 }
 
 /* ---------------------- STATUS CHECKBOX ---------------------- */
@@ -557,6 +591,24 @@ ul {
 
 .add-new-matter-button:hover {
   background-color: #fce5b0;
+}
+
+.delete-matter-button-div{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0px 0px 20px 0px;
+  padding: 0px 20px;
+  font-size: 20px;
+}
+
+.delete-matter-button{
+  border-radius: 10px;
+  height: 40px;
+  width: 120px;
+  font-size: 14px;
+  background-color: #C6B4CE;
+  margin-top: 15px;
 }
 
 /* ------------- NOTES EDITOR ------------- */
@@ -854,9 +906,14 @@ table tr:last-child td:last-child {
     .matters-list {
       display: grid;
       grid-template-columns: 25% 25% 25% 25%;
-      justify-self: center;
-      align-items: center;
+      /* justify-self: center;
+      align-items: center; */
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      /* justify-content: center; */
       min-width: 1100px;
+      height: 88vh;
       padding: 0px 0px;
       overflow-y: scroll;
     }}
@@ -865,9 +922,14 @@ table tr:last-child td:last-child {
   .matters-list {
     display: grid;
     grid-template-columns: 20% 20% 20% 20% 20%;
-    justify-self: center;
-    align-items: center;
+    /* justify-self: center;
+    align-items: center; */
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    /* justify-content: center; */
     min-width: 1350px;
+    height: 88vh;
     padding: 0px 0px;
     overflow-y: scroll;
   }

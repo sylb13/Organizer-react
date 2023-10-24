@@ -216,6 +216,78 @@ const calendarDB = [
     firstWeekdayOfMonth: 5,
     rows: 5,
   },
+  {
+    name: "Jan-2024",
+    daysNumber: 31,
+    firstWeekdayOfMonth: 1,
+    rows: 5,
+  },
+  {
+    name: "Feb-2024",
+    daysNumber: 29,
+    firstWeekdayOfMonth: 4,
+    rows: 5,
+  },
+  {
+    name: "Mar-2024",
+    daysNumber: 31,
+    firstWeekdayOfMonth: 5,
+    rows: 5,
+  },
+  {
+    name: "Apr-2024",
+    daysNumber: 30,
+    firstWeekdayOfMonth: 1,
+    rows: 5,
+  },
+  {
+    name: "May-2024",
+    daysNumber: 31,
+    firstWeekdayOfMonth: 3,
+    rows: 5,
+  },
+  {
+    name: "Jun-2024",
+    daysNumber: 30,
+    firstWeekdayOfMonth: 6,
+    rows: 5,
+  },
+  {
+    name: "Jul-2024",
+    daysNumber: 31,
+    firstWeekdayOfMonth: 1,
+    rows: 5,
+  },
+  {
+    name: "Aug-2024",
+    daysNumber: 31,
+    firstWeekdayOfMonth: 4,
+    rows: 5,
+  },
+  {
+    name: "Sep-2024",
+    daysNumber: 30,
+    firstWeekdayOfMonth: 7,
+    rows: 6,
+  },
+  {
+    name: "Oct-2024",
+    daysNumber: 31,
+    firstWeekdayOfMonth: 2,
+    rows: 5,
+  },
+  {
+    name: "Nov-2024",
+    daysNumber: 30,
+    firstWeekdayOfMonth: 5,
+    rows: 5,
+  },
+  {
+    name: "Dec-2024",
+    daysNumber: 31,
+    firstWeekdayOfMonth: 7,
+    rows: 6,
+  },
 ];
 
 export default calendarDB;

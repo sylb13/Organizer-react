@@ -14,24 +14,24 @@ module.exports = {
           field: "id",
         },
       }),
-      await queryInterface.addConstraint("Alerts", {
-        fields: ["matterId"],
-        type: "foreign key",
-        name: "alert_matter_association",
-        references: {
-          table: "Matters",
-          field: "id",
-        },
-      }),
-      await queryInterface.addConstraint("Alerts", {
-        fields: ["userId"],
-        type: "foreign key",
-        name: "alert_user_association",
-        references: {
-          table: "Users",
-          field: "id",
-        },
-      }),
+      // await queryInterface.addConstraint("Alerts", {
+      //   fields: ["matterId"],
+      //   type: "foreign key",
+      //   name: "alert_matter_association",
+      //   references: {
+      //     table: "Matters",
+      //     field: "id",
+      //   },
+      // }),
+      // await queryInterface.addConstraint("Alerts", {
+      //   fields: ["userId"],
+      //   type: "foreign key",
+      //   name: "alert_user_association",
+      //   references: {
+      //     table: "Users",
+      //     field: "id",
+      //   },
+      // }),
       await queryInterface.addConstraint("Matters", {
         fields: ["toDoListId"],
         type: "foreign key",
@@ -59,36 +59,32 @@ module.exports = {
           field: "id",
         },
       }),
-      await queryInterface.addConstraint("Categories", {
-        fields: ["userId"],
-        type: "foreign key",
-        name: "category_user_association",
-        references: {
-          table: "Users",
-          field: "id",
-        },
-      }),
     ]);
   },
 
   down: async (queryInterface, Sequelize) => {
     return Promise.all([
-      queryInterface.removeConstraint(
-        "Categories",
-        "category_user_association"
-      ),
-      queryInterface.removeConstraint(
+      await queryInterface.removeConstraint(
         "ToDoLists",
         "todolist_matter_association"
       ),
-      queryInterface.removeConstraint(
+      await queryInterface.removeConstraint(
         "ToDoListItems",
         "todolistitem_todolist_association"
       ),
-      queryInterface.removeConstraint("Matters", "matter_todolist_association"),
-      queryInterface.removeConstraint("Alerts", "alert_user_association"),
-      queryInterface.removeConstraint("Alerts", "alert_matter_association"),
-      queryInterface.removeConstraint("Matters", "matter_alert_association"),
+      await queryInterface.removeConstraint(
+        "Matters",
+        "matter_todolist_association"
+      ),
+      // await queryInterface.removeConstraint("Alerts", "alert_user_association"),
+      // await queryInterface.removeConstraint(
+      //   "Alerts",
+      //   "alert_matter_association"
+      // ),
+      await queryInterface.removeConstraint(
+        "Matters",
+        "matter_alert_association"
+      ),
     ]);
   },
 };

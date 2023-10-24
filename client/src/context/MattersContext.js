@@ -13,6 +13,7 @@ const initialState = {
   categories: null,
   alerts: null,
   alert: null,
+  alertsIds: [],
   hideOrShowDoneMatters: false,
   hideOrShowExpiredMatters: false,
   currentGMT: date.toString().slice(25, 33),
@@ -76,6 +77,12 @@ const MattersReducer = (state, action) => {
       return {
         ...state,
         alert: action.payload,
+      };
+
+    case "UPDATE_ALERTS_IDS":
+      return {
+        ...state,
+        alertsIds: action.payload,
       };
 
     case "HIDE_OR_SHOW_DONE_MATTERS":
@@ -206,6 +213,15 @@ const MattersProvider = (props) => {
     if (isHidden === true) {
       setActiveMatter(null);
     }
+  };
+
+  const deleteMatter = (id) => {
+    axios
+      .post("http://localhost:3000/delete-matter", {
+        id: id,
+      })
+      .then((res) => console.log("The matter has been deleted"))
+      .finally(() => getMatters());
   };
 
   // -------------------------------------   TO DO LIST   -------------------------------------------
@@ -480,6 +496,37 @@ const MattersProvider = (props) => {
       .finally(getAlertList());
   };
 
+  const updateAlertsIds = (newAlert) => {
+    let localAlertIdsList = [];
+    localAlertIdsList = state.alertsIds;
+    localAlertIdsList.push(newAlert);
+    dispatch({
+      type: "UPDATE_ALERTS_IDS",
+      payload: localAlertIdsList,
+    });
+  };
+
+  // -------------------------------------   SHARING   -------------------------------------------
+
+  const submitEmailToShare = (email) => {
+    axios
+      .post("http://localhost:3000/matter/share", {
+        emailAddress: email,
+        matterId: state.activeMatter.id,
+      })
+      .then((res) => {
+        if (res.data === true) {
+          alert(
+            "Sprawa została udostępniona użytkownikowi o adresi email: " + email
+          );
+        } else if (res.data === false) {
+          alert("Użytkownik o podanym adresie email nie istnieje!");
+        } else {
+          alert(res.data);
+        }
+      });
+  };
+
   return (
     <MattersContext.Provider
       value={{
@@ -491,6 +538,7 @@ const MattersProvider = (props) => {
         categories: state.categories,
         activeAlert: state.alert,
         alertsList: state.alerts,
+        alertsIds: state.alertsIds,
         hideOrShowDoneMatters: state.hideOrShowDoneMatters,
         hideOrShowExpiredMatters: state.hideOrShowExpiredMatters,
         currentGMT: state.currentGMT,
@@ -501,6 +549,7 @@ const MattersProvider = (props) => {
         setMatterTitle,
         setHideOrShowDoneMatters,
         setHideOrShowExpiredMatters,
+        deleteMatter,
         setActiveToDoList,
         addNewToDoList,
         getToDoList,
@@ -521,6 +570,8 @@ const MattersProvider = (props) => {
         setAlert,
         getAlert,
         getAlertList,
+        updateAlertsIds,
+        submitEmailToShare,
       }}
       {...props}
     />
