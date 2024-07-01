@@ -56,18 +56,7 @@ export default function DayEvent(props) {
       onClick={handleClick}
     >
       <div style={{ padding: "20px 10px" }}>
-        <p
-          style={{
-            fontSize: 20,
-            margin: "0px",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            maxWidth: "38ch",
-          }}
-        >
-          {props.description}
-        </p>
+        <p className="day-window-title-text">{props.description}</p>
       </div>
     </div>
   );

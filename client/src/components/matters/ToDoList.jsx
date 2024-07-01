@@ -17,7 +17,7 @@ function ToDoList() {
 
   useEffect(() => {
     setToDoListSwitch(activeMatter.toDoListId !== null ? true : false);
-  }, [activeMatter]);
+  }, [activeMatter, activeToDoList]);
   const [toDoListSwitch, setToDoListSwitch] = React.useState(
     activeMatter.toDoListId !== null ? true : false
   );

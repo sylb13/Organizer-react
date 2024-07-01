@@ -102,7 +102,7 @@ ul {
 
 @keyframes tools-panel-expanding {
   from {
-    left: -40vw;
+    left: -80vw;
   }
   to {
     left: 0vw;
@@ -127,7 +127,7 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 45px 0px 0px 20px;
+  padding: 45px 40px 0px 0px;
   height: 100%;
   width: 90%;
 }
@@ -136,6 +136,7 @@ ul {
 #sort-matter-button,
 #month-button {
   margin-bottom: 20px;
+  margin-right: 120px;
 }
 
 /* ------------- DETAILS PANEL ------------- */
@@ -143,22 +144,15 @@ ul {
   width: auto;
   background-color: #9b72aa;
   height: 100vh;
-  /* margin-top: 45px; */
+  margin-top: 45px;
   border-radius: 10px 0px 0px 10px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
+
 .details-panel .expanding-button {
   background: #f0d9ff;
-}
-
-.details-panel-expanded {
-  position: sticky;
-  right: 0;
-  width: 80vw;
-  animation-name: details-panel-expanding;
-  animation-duration: 1s;
 }
 
 .details-div {
@@ -170,14 +164,39 @@ ul {
   overflow-y: scroll;
 }
 
+.details-panel-expanded {
+  position: sticky;
+  right: 0;
+  width: 80vw;
+  animation-name: details-panel-expanding;
+  animation-duration: 1s;
+}
+
 @keyframes details-panel-expanding {
   from {
-    right: -40vw;
+    right: -80vw;
   }
   to {
     right: 0vw;
   }
 }
+/* poniżej ustawienia które działają dla małych urządzeń emulowanych w przeglądarce */
+
+/* .details-panel-expanded {
+  position: sticky;
+  right: 70vw;
+  width: 80vw;
+  animation-name: details-panel-expanding;
+  animation-duration: 1s;
+}
+@keyframes details-panel-expanding {
+  from {
+    right: -80vw;
+  }
+  to {
+    right: 70vw;
+  }
+} */
 /* ------------- TODO LIST ------------- */
 
 .todolist-div {
@@ -439,9 +458,10 @@ background-color: #9b72aa;
   justify-content: space-between;
   align-items: center;
   border-radius: 10px;
-  padding: 10px 30px;
+  margin: 10px 30px;
   background-color: #5970AA;
   height: 170px;
+  width: 100%;
   margin-bottom: 15px;
 }
 
@@ -478,7 +498,17 @@ background-color: #9b72aa;
   grid-row: 1/2;
   border-radius: 15px 15px 0px 0px;
   padding: 6px 20px;
+  margin-bottom: 40px;
   display: flex;
+}
+
+.day-window-title-text{
+  font-size: 12px;
+  margin: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px
 }
 
 .day-event{
@@ -520,7 +550,9 @@ background-color: #9b72aa;
   justify-content: center;
   padding: 0px 0px;
   /* height: 87vh; */
-  overflow-y: scroll;
+  max-height: 87vh;
+  overflow: auto;
+  /* overflow-y: scroll; */
 }
 
 .matter-div {
@@ -728,11 +760,15 @@ th {
   height: auto;
 }
 td {
-  width: 100px;
-  min-width: 50px;
-  max-width: 100px;
+  /* width: 100px; */
+  /* min-width: 100px; */
+  height: 10vh;
+  width: 10vw;
+  min-width: 30px;
+  min-height: 30px;
+  /* max-width: 100px;
   height: 100px;
-  max-height: 100px;
+  max-height: 100px; */
 }
 
 .day-number-ahref{
@@ -741,7 +777,7 @@ td {
 }
 
 .cell-content {
-  height: 100px;
+  height: 100%;
   font-size: 20px;
   display: flex;
   /* align-items: flex-start; */
@@ -759,6 +795,19 @@ td {
   border-radius: 15px;
   margin-bottom: 2px;
   padding: 0px 10px;
+}
+
+.calendar-event-text-div{
+  width: 80%;
+}
+
+.calendar-event-text-paragraph{
+  font-size: 0;
+  margin: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .event-details{
@@ -819,6 +868,12 @@ table tr:last-child td:last-child {
 
 /* --------------------------------  Large devices (large desktops, 1200px and up)  -------------------------------- */
 @media (min-width: 1200px) {
+  #year-button,
+  #sort-matter-button,
+  #month-button {
+    margin-right: 0px;
+  }
+
   .grid-arrangement {
     grid-template-columns: 15% 65% 20%;
   }
@@ -829,6 +884,10 @@ table tr:last-child td:last-child {
   }
   .content-part {
     grid-column: 2/3;
+  }
+
+  .filter-switches-window{
+    width: 80%;
   }
 
   /* ------------- DETAILS PANEL ------------- */
@@ -844,18 +903,6 @@ table tr:last-child td:last-child {
   .details-div {
     padding: 45px 0px 0px 0px;
   }
-    /* ------------- MATTERS ------------- */
-
-    /* .matters-list {
-      display: grid;
-      grid-template-columns: 25% 25% 25% 25%;
-      justify-self: center;
-      align-items: center;
-      min-width: 1100px;
-      padding: 0px 0px;
-      overflow-y: scroll;
-    } */
-  
 
   /* ------------- TODO LIST ------------- */
 
@@ -873,6 +920,9 @@ table tr:last-child td:last-child {
   .tools-panel {
     grid-column: 1/2;
     margin-top: 0px;
+  }
+  .tools-div {
+    padding: 45px 0px 0px 0px;
   }
   .tools-panel-expanded {
     position: none;
@@ -899,6 +949,36 @@ table tr:last-child td:last-child {
   .friday-column::before {
     content: "Friday";
   }
+
+  .calendar-event{
+    height: 15%;
+    width: 100%;
+    background-color: #C0C0C0;
+    border-radius: 15px;
+    margin-bottom: 2px;
+    padding: 0px 10px;
+  }
+  .calendar-event-text-div{
+    width: 100%;
+  }
+
+  .calendar-event-text-paragraph{
+    font-size: 12px;
+    max-width: 36ch;
+  }
+
+  td {
+    height: 120px;
+    width: 100px;
+    max-height: 120px;
+    max-width: 100px;
+  }
+
+  .day-window-title-text{
+    font-size: 20px;
+    max-width: 36ch;
+  }
+
 }
 
     /* ------------- MATTERS ------------- */
@@ -910,12 +990,14 @@ table tr:last-child td:last-child {
       align-items: center; */
       flex-wrap: wrap;
       align-items: flex-start;
-      justify-content: space-between;
-      /* justify-content: center; */
+      /* justify-content: space-between; */
+      justify-content: center;
       min-width: 1100px;
-      height: 88vh;
+      /* height: 88vh; */
       padding: 0px 0px;
-      overflow-y: scroll;
+      padding-bottom: 90px;
+      overflow: auto;
+      /* overflow-y: scroll; */
     }}
 
 @media (min-width: 2100px) {
@@ -926,11 +1008,13 @@ table tr:last-child td:last-child {
     align-items: center; */
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: space-between;
-    /* justify-content: center; */
+    /* justify-content: space-between; */
+    justify-content: center;
     min-width: 1350px;
-    height: 88vh;
+    /* height: 88vh; */
     padding: 0px 0px;
-    overflow-y: scroll;
+    padding-bottom: 90px;
+    overflow: auto;
+    /* overflow-y: scroll; */
   }
 }

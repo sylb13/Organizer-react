@@ -27,6 +27,11 @@ function Matter({
   // const [dateFlag, setDateFlag] = useState(isAssignedInCalendar);
 
   useEffect(() => {
+    setMattersContent(content);
+    console.log("Dokonałem zmiany nazwy sprawy"); // funkcja na potrzeby obrony :) bo nazwa sie nie chciała w nowej sprawie zawsze aktualizować :/
+  });
+
+  useEffect(() => {
     if (activeMatter.id === matterId) {
       if (activeMatter.isDone === true) {
         setIsDoneFlag(true);

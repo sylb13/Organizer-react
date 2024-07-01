@@ -47,17 +47,8 @@ export default function CalendarEvent(props) {
           : { backgroundColor: findOutColor() }
       }
     >
-      <div style={{ width: "100px" }}>
-        <p
-          style={{
-            fontSize: 10,
-            margin: "0px",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            maxWidth: "100%",
-          }}
-        >
+      <div className="calendar-event-text-div">
+        <p className="calendar-event-text-paragraph">
           {props.matterDetails.title}
         </p>
       </div>

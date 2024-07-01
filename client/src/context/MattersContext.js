@@ -251,7 +251,6 @@ const MattersProvider = (props) => {
   };
 
   const setActiveToDoList = async (activeM) => {
-    //console.log("Nie wiem co jest  " + activeM);
     if (activeM != null) {
       await axios
         .get(`http://localhost:3000/get-active-todolist${activeM}`)

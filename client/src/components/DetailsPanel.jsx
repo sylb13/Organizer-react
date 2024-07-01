@@ -67,10 +67,7 @@ function DetailsPanel(props) {
           <StatusCheckbox />
           <ToDoList />
           <CategoriesWindow />
-          <h2>
-            Tu jeszcze musze dodać Alerty ale dopiero jak będą działac
-            poprawnie. Kalendarza zdecydowalem sie nie dodawać
-          </h2>
+          <AlertWindow />
         </div>
       </div>
     );

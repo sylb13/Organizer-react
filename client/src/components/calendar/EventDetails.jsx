@@ -29,7 +29,7 @@ export default function EventDetails() {
   ) : (
     <div className="event-details">
       <h4>Select an event to see some details...</h4>
-      <h4>Click on a day to see more details of the whole day...</h4>
+      <h4>Click the day number to open the Day Screen...</h4>
     </div>
   );
 }

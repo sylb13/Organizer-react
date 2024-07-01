@@ -707,7 +707,7 @@ router.get("/get-alerts", async (req, res) => {
     // const result = alerts.concat(matters);
 
     // res.send(result);
-    console.log(alerts[0].Matter.title);
+    // console.log(alerts[0].Matter.title);
     res.send(alerts);
   } catch (error) {
     console.log(error);
